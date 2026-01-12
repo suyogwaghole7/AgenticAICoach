@@ -1,216 +1,121 @@
 AI Ethics & Responsible AI Coach
+
 Agentic AI System for Ethical, Transparent & Compliant AI Development
 
+Overview
 
+AI Ethics & Responsible AI Coach is an agentic AI system designed to help AI builders, startups, and enterprises design ethical, compliant, and trustworthy AI systems.
 
+The system acts as a virtual Responsible-AI consultant that:
 
+Collects structured product information Identifies ethical, legal, and operational risks Generates compliance-ready risk registers Produces actionable mitigation plans Outputs governance templates for audits and reviews
 
+It supports multiple domains including: HR & hiring systems Healthcare & hospital AI Fintech & credit scoring AI products using sensitive or regulated data The application is available in two modes: Chat-based UI (Streamlit) for human interaction Production-ready API (FastAPI) for system integration What makes this an Agentic AI
 
+This system is built using CrewAI with multiple specialized agents: Agent Responsibility Intake Agent Asks structured questions about the AI product Risk Agent Identifies ethical, legal, and fairness risks Compliance Agent Maps issues to Responsible AI & regulatory concerns Action Agent Produces mitigation and governance steps Template Agent Generates ready-to-use policy and audit templates
 
+Agents collaborate automatically to produce a complete Responsible-AI report from a single user description.
 
-🚀 Overview
+Architecture
 
-AI Ethics & Responsible AI Coach is an agent-powered system designed to help AI builders, startups, and enterprises design ethical, compliant, and trustworthy AI systems.
+User → Streamlit Chat UI Streamlit → FastAPI FastAPI → CrewAI Agents CrewAI → Local LLM (Ollama) CrewAI → Structured Ethics & Compliance Output
 
-It acts as a virtual Responsible-AI consultant that:
+Tech Stack
 
-Collects structured product information
+CrewAI – agent orchestration Ollama – local LLM runtime FastAPI – production API Streamlit – conversational UI Render – deployment
 
-Evaluates risks
+Repository Structure ai-ethics-coach/ │ ├── api/ │ └── app.py # FastAPI application │ ├── src/ │ └── responsible_ai_coach/ │ ├── crew.py # CrewAI orchestration │ └── config/ │ ├── agents.yaml # Agent definitions │ └── tasks.yaml # Task definitions │ ├── ui/ │ └── streamlit_app.py # Chat UI │ ├── render.yaml # Render deployment config ├── requirements.txt ├── .env.example └── README.md
 
-Generates compliance-ready outputs
+Live Production API
 
-Produces governance artifacts used by auditors and regulators
-
-This system is especially useful for:
-
-AI startups
-
-Healthcare & HR systems
-
-Compliance teams
-
-AI governance & risk professionals
-
-🎯 What This System Does
-
-The coach guides users through an AI ethics workflow:
-
-Product Intake
-
-Risk Assessment
-
-Bias & Fairness Evaluation
-
-Privacy & Compliance Checks
-
-Human Oversight Validation
-
-Governance Documentation
-
-It outputs:
-
-Risk Register
-
-Action Plan
-
-AI Governance Templates
-
-Compliance Checklists
-
-Audit-ready documentation
-
-🧠 How It Works
-
-This project uses Agentic AI (CrewAI) to coordinate specialized agents:
-
-Agent	Role
-Intake Coach	Collects product context
-Risk Analyst	Identifies ethical & legal risks
-Compliance Agent	Maps to GDPR, EU AI Act, HIPAA, etc
-Governance Agent	Creates templates & policies
-
-These agents collaborate to generate a full Responsible AI assessment.
-
-🧩 Architecture
-User → Streamlit Chat UI
-          ↓
-   FastAPI Backend
-          ↓
-    CrewAI Agent System
-          ↓
-   Risk Register + Action Plan + Templates
-
-🌐 Live Production API
-
-Your deployed API is live:
+The API is deployed on Render:
 
 https://ai-ethics-coach.onrender.com
 
-
-Health check:
-
-https://ai-ethics-coach.onrender.com/
-
-
-Swagger:
+Swagger UI:
 
 https://ai-ethics-coach.onrender.com/docs
 
-📌 Example Use Cases
-HR Hiring AI
+Health check:
 
-Detects bias, fairness, explainability, and discrimination risks.
+https://ai-ethics-coach.onrender.com/healthz
 
-Healthcare AI
+How to Run Locally
 
-Evaluates patient safety, medical liability, and regulatory compliance.
+Install prerequisites
+Python 3.10+
 
-Finance AI
+Git
 
-Checks fairness, explainability, and automated decision risks.
+Ollama
 
-🖥 Local Setup
-1. Clone Repository
-git clone https://github.com/suyogwaghole7/ai-ethics-coach.git
-cd ai-ethics-coach
+Install Ollama from: https://ollama.com
 
-2. Create Virtual Environment
-python -m venv .venv
-.venv\Scripts\activate   # Windows
-# or
-source .venv/bin/activate   # Mac/Linux
+Clone the repository git clone https://github.com/suyogwaghole7/ai-ethics-coach.git cd ai-ethics-coach
 
-3. Install Dependencies
-pip install -r requirements.txt
+Create virtual environment
 
-🧪 Run Locally
-Start FastAPI
-uvicorn api.app:app --reload --port 8000
+Windows:
 
+python -m venv .venv ..venv\Scripts\Activate.ps1
 
-Open:
+Mac / Linux:
 
-http://127.0.0.1:8000
+python3 -m venv .venv source .venv/bin/activate
+
+Install dependencies pip install -r requirements.txt
+
+Run Ollama
+
+Check installed models: ollama list
+
+If needed: ollama pull llama3.2:3b
+
+Test: ollama run llama3.2:3b "Say READY"
+
+Start FastAPI uvicorn api.app:app --reload --port 8000
+Open Swagger:
 
 http://127.0.0.1:8000/docs
 
-💬 Streamlit Chat UI
-streamlit run ui/streamlit_app.py
+Start Streamlit Chat UI
+Open a new terminal: streamlit run ui/streamlit_app.py
 
+Open:
 
-Chat-style Responsible AI coaching:
+http://localhost:8501
 
-Enter your AI product
+How to Use the Coach
 
-Answer intake questions
+Describe your AI system Example:
 
-Receive governance documents
+Domain (HR, hospital, etc)
 
-🔌 API Endpoints
-Endpoint	Purpose
-GET /	Health check
-POST /intake	Generate intake questions
-POST /report	Generate risk register + action plan
-📦 Example API Call
-POST /intake
-{
-  "product_description": "We are building an AI system that predicts patient risk scores from hospital records. Doctors use it to prioritize treatment."
-}
+Who uses it What decision it makes What data it use Human oversight The AI asks structured intake questions Answer them in numbered format
 
-☁️ Deployment (Render)
+The system generates: Risk Register Action Plan Governance Templates
 
-This project is deployed on Render using:
+You can then ask for refinements: “Make it healthcare-specific”
 
-Build Command:
+“Add EU AI Act mapping”
 
-pip install -r requirements.txt
+“Refine bias mitigation”
 
+To start a new product: Click Reset chat in Streamlit.
 
-Start Command:
+FastAPI Endpoints Endpoint Description POST /intake Generates intake questions POST /report Generates full ethics & compliance report GET /healthz Health check GET /docs Swagger UI Deployment (Render)
 
-uvicorn api.app:app --host 0.0.0.0 --port 10000
+Build command: pip install -r requirements.txt
 
-🔐 Compliance Coverage
+Start command: uvicorn api.app:app --host 0.0.0.0 --port 10000
 
-This system supports:
-
-GDPR
-
-EU AI Act
-
-HIPAA
-
-Fairness & Bias Audits
-
-Model Governance
-
-Human-in-the-Loop
-
-Transparency & Explainability
-
-🏆 Why This Matters
-
-This project demonstrates:
+Why this matters This project demonstrates:
 
 Agentic AI design
 
-AI Governance tooling
-
-Regulatory-aware AI
-
-Production-ready FastAPI
-
-Ethical AI architecture
+Multi-agent orchestration Responsible AI governance Production-ready deployment Chat-based ethical decision support
 
 It is suitable for:
 
-Startup incubators
+AI startups Hospitals & HR teams Compliance officers Regulators & auditors
 
-AI compliance challenges
-
-Research & enterprise demos
-
-📄 License
-
-MIT License
